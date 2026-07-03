@@ -1,5 +1,6 @@
 package com.diarychat.auth.controller;
 
+import com.diarychat.auth.docs.AuthApiExamples;
 import com.diarychat.auth.dto.SignupRequest;
 import com.diarychat.auth.dto.SignupResponse;
 import com.diarychat.auth.service.SignupService;
@@ -51,16 +52,7 @@ public class AuthController {
                 schema = @Schema(implementation = ErrorResponse.class),
                 examples = @ExampleObject(
                     name = "입력값 검증 실패",
-                    value = """
-                        {
-                          "code": "INVALID_REQUEST",
-                          "message": "요청 값이 올바르지 않습니다.",
-                          "errors": {
-                            "email": "올바른 형식의 이메일 주소여야 합니다",
-                            "password": "크기가 8에서 72 사이여야 합니다"
-                          }
-                        }
-                        """
+                    value = AuthApiExamples.INVALID_REQUEST
                 )
             )
         ),
@@ -72,15 +64,7 @@ public class AuthController {
                 schema = @Schema(implementation = ErrorResponse.class),
                 examples = @ExampleObject(
                     name = "아이디 중복",
-                    value = """
-                        {
-                          "code": "DUPLICATE_USER",
-                          "message": "이미 사용 중인 userId입니다.",
-                          "errors": {
-                            "userId": "이미 사용 중인 userId입니다."
-                          }
-                        }
-                        """
+                    value = AuthApiExamples.DUPLICATE_USER
                 )
             )
         )
