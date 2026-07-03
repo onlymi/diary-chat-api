@@ -1,4 +1,4 @@
-package com.diarychat.user.controller;
+package com.diarychat.auth.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

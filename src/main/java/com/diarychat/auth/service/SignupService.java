@@ -1,9 +1,9 @@
-package com.diarychat.user.service;
+package com.diarychat.auth.service;
 
-import com.diarychat.user.dto.SignupRequest;
-import com.diarychat.user.dto.SignupResponse;
+import com.diarychat.auth.dto.SignupRequest;
+import com.diarychat.auth.dto.SignupResponse;
+import com.diarychat.auth.exception.DuplicateUserException;
 import com.diarychat.user.entity.User;
-import com.diarychat.user.exception.DuplicateUserException;
 import com.diarychat.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

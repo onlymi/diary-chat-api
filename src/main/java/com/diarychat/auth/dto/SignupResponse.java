@@ -1,4 +1,4 @@
-package com.diarychat.user.dto;
+package com.diarychat.auth.dto;
 
 import com.diarychat.user.entity.User;
 

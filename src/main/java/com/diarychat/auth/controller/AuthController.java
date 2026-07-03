@@ -1,8 +1,8 @@
-package com.diarychat.user.controller;
+package com.diarychat.auth.controller;
 
-import com.diarychat.user.dto.SignupRequest;
-import com.diarychat.user.dto.SignupResponse;
-import com.diarychat.user.service.SignupService;
+import com.diarychat.auth.dto.SignupRequest;
+import com.diarychat.auth.dto.SignupResponse;
+import com.diarychat.auth.service.SignupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

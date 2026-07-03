@@ -1,4 +1,4 @@
-package com.diarychat.user.exception;
+package com.diarychat.auth.exception;
 
 public class DuplicateUserException extends RuntimeException {
 

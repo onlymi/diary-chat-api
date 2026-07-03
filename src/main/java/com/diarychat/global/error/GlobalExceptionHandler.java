@@ -1,6 +1,6 @@
 package com.diarychat.global.error;
 
-import com.diarychat.user.exception.DuplicateUserException;
+import com.diarychat.auth.exception.DuplicateUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
