@@ -23,6 +23,25 @@ public final class AuthApiExamples {
             }
             """;
 
+    public static final String LOGIN_INVALID_REQUEST = """
+            {
+              "code": "INVALID_REQUEST",
+              "message": "요청 값이 올바르지 않습니다.",
+              "errors": {
+                "userId": "아이디는 필수입니다.",
+                "password": "비밀번호는 필수입니다."
+              }
+            }
+            """;
+
+    public static final String INVALID_CREDENTIALS = """
+            {
+              "code": "INVALID_CREDENTIALS",
+              "message": "아이디 또는 비밀번호가 올바르지 않습니다.",
+              "errors": {}
+            }
+            """;
+
     private AuthApiExamples() {
     }
 }

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: diary-chat-api
+  config:
+    import: "optional:file:.env[.properties]"
+  datasource:
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:diary_chat}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    username: "${MYSQL_USER:diary_chat}"
+    password: "${MYSQL_PASSWORD:diary_chat_password}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: "${DDL_AUTO:update}"
+    open-in-view: false
+    show-sql: false
+  ai:
+    openai:
+      api-key: "${OPENAI_API_KEY:local-placeholder}"
+
+jwt:
+  secret: "${JWT_SECRET}"
+  access-token-expiration: "${JWT_ACCESS_TOKEN_EXPIRATION:1800000}"
+  refresh-token-expiration: "${JWT_REFRESH_TOKEN_EXPIRATION:1209600000}"
+
+server:
+  port: "${API_PORT:8080}"

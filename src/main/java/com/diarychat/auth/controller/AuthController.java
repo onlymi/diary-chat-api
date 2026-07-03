@@ -82,11 +82,11 @@ public class AuthController {
     
     @Operation(
         summary = "로그인",
-        description = "기존의 사용자로 로그인을 진행합니다."
+        description = "아이디와 비밀번호를 검증하고 인증 토큰을 발급합니다."
     )
     @ApiResponses({
         @ApiResponse(
-            responseCode = "201",
+            responseCode = "200",
             description = "로그인 성공",
             content = @Content(
                 mediaType = "application/json",
@@ -101,14 +101,26 @@ public class AuthController {
                 schema = @Schema(implementation = ErrorResponse.class),
                 examples = @ExampleObject(
                     name = "입력값 검증 실패",
-                    value = AuthApiExamples.INVALID_REQUEST
+                    value = AuthApiExamples.LOGIN_INVALID_REQUEST
+                )
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401",
+            description = "아이디 또는 비밀번호 불일치",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class),
+                examples = @ExampleObject(
+                    name = "로그인 실패",
+                    value = AuthApiExamples.INVALID_CREDENTIALS
                 )
             )
         )
     })
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> signup(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse response = loginService.login(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.ok(response);
     }
 }

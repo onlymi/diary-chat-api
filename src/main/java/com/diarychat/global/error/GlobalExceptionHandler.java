@@ -1,6 +1,7 @@
 package com.diarychat.global.error;
 
 import com.diarychat.auth.exception.DuplicateUserException;
+import com.diarychat.auth.exception.InvalidLoginException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -33,6 +34,17 @@ public class GlobalExceptionHandler {
                         "DUPLICATE_USER",
                         exception.getMessage(),
                         Map.of(exception.getField(), exception.getMessage())
+                )
+        );
+    }
+
+    @ExceptionHandler(InvalidLoginException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidLogin(InvalidLoginException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ErrorResponse(
+                        "INVALID_CREDENTIALS",
+                        exception.getMessage(),
+                        Map.of()
                 )
         );
     }
