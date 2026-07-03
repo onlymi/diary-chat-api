@@ -1,8 +1,11 @@
 package com.diarychat.auth.controller;
 
 import com.diarychat.auth.docs.AuthApiExamples;
+import com.diarychat.auth.dto.LoginRequest;
+import com.diarychat.auth.dto.LoginResponse;
 import com.diarychat.auth.dto.SignupRequest;
 import com.diarychat.auth.dto.SignupResponse;
+import com.diarychat.auth.service.LoginService;
 import com.diarychat.auth.service.SignupService;
 import com.diarychat.global.error.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     
     private final SignupService signupService;
+    private final LoginService loginService;
     
-    public AuthController(SignupService signupService) {
+    public AuthController(SignupService signupService, LoginService loginService) {
         this.signupService = signupService;
+        this.loginService = loginService;
     }
 
     @Operation(
@@ -72,6 +77,38 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@Valid @RequestBody SignupRequest request) {
         SignupResponse response = signupService.signup(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+    
+    @Operation(
+        summary = "로그인",
+        description = "기존의 사용자로 로그인을 진행합니다."
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "201",
+            description = "로그인 성공",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = LoginResponse.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "잘못된 요청",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class),
+                examples = @ExampleObject(
+                    name = "입력값 검증 실패",
+                    value = AuthApiExamples.INVALID_REQUEST
+                )
+            )
+        )
+    })
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> signup(@Valid @RequestBody LoginRequest request) {
+        LoginResponse response = loginService.login(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
