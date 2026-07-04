@@ -47,18 +47,18 @@ class SignupServiceTest {
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(captor.capture());
         assertThat(captor.getValue().getPassword()).isEqualTo("encoded-password");
-        assertThat(response.userId()).isEqualTo("seungmin");
+        assertThat(response.loginId()).isEqualTo("seungmin");
         assertThat(response.email()).isEqualTo("test@example.com");
     }
 
     @Test
-    void signupRejectsDuplicateUserId() {
+    void signupRejectsDuplicateLoginId() {
         SignupRequest request = request();
-        given(userRepository.existsByUserId("seungmin")).willReturn(true);
+        given(userRepository.existsByLoginId("seungmin")).willReturn(true);
 
         assertThatThrownBy(() -> signupService.signup(request))
                 .isInstanceOf(DuplicateUserException.class)
-                .hasMessage("이미 사용 중인 userId입니다.");
+                .hasMessage("이미 사용 중인 loginId입니다.");
 
         verify(userRepository, never()).save(any());
     }

@@ -25,7 +25,7 @@ public class SignupService {
         validateDuplicate(request);
 
         User user = User.create(
-                request.userId(),
+                request.loginId(),
                 request.email(),
                 passwordEncoder.encode(request.password()),
                 request.nickname(),
@@ -36,8 +36,8 @@ public class SignupService {
     }
 
     private void validateDuplicate(SignupRequest request) {
-        if (userRepository.existsByUserId(request.userId())) {
-            throw new DuplicateUserException("userId");
+        if (userRepository.existsByLoginId(request.loginId())) {
+            throw new DuplicateUserException("loginId");
         }
         if (userRepository.existsByEmail(request.email())) {
             throw new DuplicateUserException("email");

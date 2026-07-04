@@ -11,7 +11,7 @@ public record SignupRequest(
         @NotBlank
         @Size(min = 4, max = 30)
         @Pattern(regexp = "^[a-zA-Z0-9_]+$")
-        String userId,
+        String loginId,
 
         @Schema(description = "이메일", example = "test@example.com")
         @NotBlank

@@ -21,11 +21,10 @@ class JwtProviderTest {
 
     @Test
     void createsAndValidatesAccessToken() {
-        String token = jwtProvider.createAccessToken(1L, "seungmin");
+        String token = jwtProvider.createAccessToken(1L);
 
         assertThat(jwtProvider.validateToken(token, JwtTokenType.ACCESS)).isTrue();
-        assertThat(jwtProvider.getUserKey(token)).isEqualTo(1L);
-        assertThat(jwtProvider.getUserId(token)).isEqualTo("seungmin");
+        assertThat(jwtProvider.getUserId(token)).isEqualTo(1L);
     }
 
     @Test
@@ -34,12 +33,12 @@ class JwtProviderTest {
 
         assertThat(jwtProvider.validateToken(token, JwtTokenType.REFRESH)).isTrue();
         assertThat(jwtProvider.validateToken(token, JwtTokenType.ACCESS)).isFalse();
-        assertThat(jwtProvider.getUserKey(token)).isEqualTo(1L);
+        assertThat(jwtProvider.getUserId(token)).isEqualTo(1L);
     }
 
     @Test
     void rejectsTamperedToken() {
-        String token = jwtProvider.createAccessToken(1L, "seungmin");
+        String token = jwtProvider.createAccessToken(1L);
 
         assertThat(jwtProvider.validateToken(token + "tampered", JwtTokenType.ACCESS)).isFalse();
     }

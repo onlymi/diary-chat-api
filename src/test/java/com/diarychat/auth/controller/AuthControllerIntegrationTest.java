@@ -27,7 +27,7 @@ class AuthControllerIntegrationTest {
                         .content(validRequest()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.userId").value("seungmin"))
+                .andExpect(jsonPath("$.loginId").value("seungmin"))
                 .andExpect(jsonPath("$.email").value("test@example.com"))
                 .andExpect(jsonPath("$.nickname").value("승민"))
                 .andExpect(jsonPath("$.phoneNumber").value("010-1234-5678"))
@@ -40,7 +40,7 @@ class AuthControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                  "userId": "a",
+                                  "loginId": "a",
                                   "email": "invalid-email",
                                   "password": "short",
                                   "nickname": "",
@@ -49,7 +49,7 @@ class AuthControllerIntegrationTest {
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("INVALID_REQUEST"))
-                .andExpect(jsonPath("$.errors.userId").exists())
+                .andExpect(jsonPath("$.errors.loginId").exists())
                 .andExpect(jsonPath("$.errors.email").exists())
                 .andExpect(jsonPath("$.errors.password").exists())
                 .andExpect(jsonPath("$.errors.nickname").exists())
@@ -57,7 +57,7 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
-    void signupRejectsDuplicateUserId() throws Exception {
+    void signupRejectsDuplicateLoginId() throws Exception {
         mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validRequest()))
@@ -68,13 +68,13 @@ class AuthControllerIntegrationTest {
                         .content(validRequest().replace("test@example.com", "other@example.com")))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("DUPLICATE_USER"))
-                .andExpect(jsonPath("$.errors.userId").exists());
+                .andExpect(jsonPath("$.errors.loginId").exists());
     }
 
     private String validRequest() {
         return """
                 {
-                  "userId": "seungmin",
+                  "loginId": "seungmin",
                   "email": "test@example.com",
                   "password": "12345678",
                   "nickname": "승민",

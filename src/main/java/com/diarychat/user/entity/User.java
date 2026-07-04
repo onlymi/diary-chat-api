@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(
         name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_users_user_id", columnNames = "user_id"),
+                @UniqueConstraint(name = "uk_users_login_id", columnNames = "login_id"),
                 @UniqueConstraint(name = "uk_users_email", columnNames = "email")
         }
 )
@@ -26,8 +26,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false, length = 30)
-    private String userId;
+    @Column(name = "login_id", nullable = false, length = 30)
+    private String loginId;
 
     @Column(nullable = false, length = 255)
     private String email;
@@ -57,13 +57,13 @@ public class User {
     }
 
     private User(
-            String userId,
+            String loginId,
             String email,
             String password,
             String nickname,
             String phoneNumber
     ) {
-        this.userId = userId;
+        this.loginId = loginId;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -71,13 +71,13 @@ public class User {
     }
 
     public static User create(
-            String userId,
+            String loginId,
             String email,
             String encodedPassword,
             String nickname,
             String phoneNumber
     ) {
-        return new User(userId, email, encodedPassword, nickname, phoneNumber);
+        return new User(loginId, email, encodedPassword, nickname, phoneNumber);
     }
 
     @PrePersist
@@ -96,8 +96,8 @@ public class User {
         return id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getLoginId() {
+        return loginId;
     }
 
     public String getEmail() {

@@ -16,7 +16,6 @@ import java.util.Date;
 public class JwtProvider {
 
     private static final String TOKEN_TYPE_CLAIM = "tokenType";
-    private static final String USER_ID_CLAIM = "userId";
 
     private final JwtProperties properties;
     private final SecretKey signingKey;
@@ -30,21 +29,19 @@ public class JwtProvider {
                 .build();
     }
 
-    public String createAccessToken(Long userKey, String userId) {
+    public String createAccessToken(Long userId) {
         return createToken(
-                userKey,
+                userId,
                 JwtTokenType.ACCESS,
-                properties.accessTokenExpiration(),
-                userId
+                properties.accessTokenExpiration()
         );
     }
 
-    public String createRefreshToken(Long userKey) {
+    public String createRefreshToken(Long userId) {
         return createToken(
-                userKey,
+                userId,
                 JwtTokenType.REFRESH,
-                properties.refreshTokenExpiration(),
-                null
+                properties.refreshTokenExpiration()
         );
     }
 
@@ -57,32 +54,23 @@ public class JwtProvider {
         }
     }
 
-    public Long getUserKey(String token) {
+    public Long getUserId(String token) {
         return Long.valueOf(parseClaims(token).getSubject());
     }
 
-    public String getUserId(String token) {
-        return parseClaims(token).get(USER_ID_CLAIM, String.class);
-    }
-
     private String createToken(
-            Long userKey,
+            Long userId,
             JwtTokenType tokenType,
-            long expirationMillis,
-            String userId
+            long expirationMillis
     ) {
         Instant issuedAt = Instant.now();
         Instant expiresAt = issuedAt.plusMillis(expirationMillis);
 
         var builder = Jwts.builder()
-                .subject(userKey.toString())
+                .subject(userId.toString())
                 .claim(TOKEN_TYPE_CLAIM, tokenType.name())
                 .issuedAt(Date.from(issuedAt))
                 .expiration(Date.from(expiresAt));
-
-        if (userId != null) {
-            builder.claim(USER_ID_CLAIM, userId);
-        }
 
         return builder
                 .signWith(signingKey)

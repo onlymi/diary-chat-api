@@ -10,7 +10,7 @@ public record LoginRequest (
     @NotBlank(message = "아이디는 필수입니다.")
     @Size(min = 4, max = 30)
     @Pattern(regexp = "^[a-zA-Z0-9_]+$")
-    String userId,
+    String loginId,
     
     @Schema(description = "비밀번호", example = "12345678", format = "password")
     @NotBlank(message = "비밀번호는 필수입니다.")

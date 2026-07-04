@@ -8,7 +8,7 @@ public record SignupResponse(
         Long id,
 
         @Schema(description = "로그인 아이디", example = "seungmin")
-        String userId,
+        String loginId,
 
         @Schema(description = "이메일", example = "test@example.com")
         String email,
@@ -22,7 +22,7 @@ public record SignupResponse(
     public static SignupResponse from(User user) {
         return new SignupResponse(
                 user.getId(),
-                user.getUserId(),
+                user.getLoginId(),
                 user.getEmail(),
                 user.getNickname(),
                 user.getPhoneNumber()

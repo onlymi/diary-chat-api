@@ -5,7 +5,7 @@
 ``` text
 users
 - id PK
-- user_id
+- login_id
 - email
 - password
 - nickname
@@ -75,7 +75,7 @@ Diary 1 : N ChatSession
   컬럼                타입       설명
   ------------------- ---------- -------------------
   id                  BIGINT     사용자 ID
-  user_id             VARCHAR    로그인 아이디
+  login_id            VARCHAR    로그인 아이디
   email               VARCHAR    로그인 이메일
   password            VARCHAR    암호화된 비밀번호
   nickname            VARCHAR    닉네임
@@ -124,7 +124,7 @@ Diary 1 : N ChatSession
 
 ``` json
 {
-  "userId": "seungmin",
+  "loginId": "seungmin",
   "email": "test@example.com",
   "password": "12345678",
   "nickname": "승민",
@@ -137,7 +137,7 @@ Diary 1 : N ChatSession
 ``` json
 {
   "id": 1,
-  "userId": "seungmin",
+  "loginId": "seungmin",
   "email": "test@example.com",
   "nickname": "승민",
   "phoneNumber": "010-1234-5678"
@@ -154,7 +154,7 @@ Diary 1 : N ChatSession
 
 ``` json
 {
-  "email": "test@example.com",
+  "loginId": "seungmin",
   "password": "12345678"
 }
 ```

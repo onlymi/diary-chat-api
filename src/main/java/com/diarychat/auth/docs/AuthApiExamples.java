@@ -16,9 +16,9 @@ public final class AuthApiExamples {
     public static final String DUPLICATE_USER = """
             {
               "code": "DUPLICATE_USER",
-              "message": "이미 사용 중인 userId입니다.",
+              "message": "이미 사용 중인 loginId입니다.",
               "errors": {
-                "userId": "이미 사용 중인 userId입니다."
+                "loginId": "이미 사용 중인 loginId입니다."
               }
             }
             """;
@@ -28,7 +28,7 @@ public final class AuthApiExamples {
               "code": "INVALID_REQUEST",
               "message": "요청 값이 올바르지 않습니다.",
               "errors": {
-                "userId": "아이디는 필수입니다.",
+                "loginId": "아이디는 필수입니다.",
                 "password": "비밀번호는 필수입니다."
               }
             }
